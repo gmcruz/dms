@@ -8,11 +8,7 @@ import javax.ws.rs.ext.Provider;
 
 import de.medic.cms.host.dms.model.ErrorMessage;
 
-
-
-// This class intentionally doesn't have the @Provider annotation.
-// It has been disabled in order to try out other ways of throwing exceptions in JAX-RS
-
+//Allows Jersey to register this mapper as an exception
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 

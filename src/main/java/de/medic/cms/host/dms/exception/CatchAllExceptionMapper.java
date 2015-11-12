@@ -10,10 +10,10 @@ import de.medic.cms.host.dms.model.ErrorMessage;
 
 //Allows Jersey to register this mapper as an exception
 @Provider
-public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFoundException> {
+public class CatchAllExceptionMapper implements ExceptionMapper<CatchAllException> {
 
 	@Override
-	public Response toResponse(DataNotFoundException ex) {
+	public Response toResponse(CatchAllException ex) {
 		ErrorMessage errorMessage = new ErrorMessage(ex.getMessage(), 404);
 		return Response.status(Status.NOT_FOUND)
 				.entity(errorMessage)

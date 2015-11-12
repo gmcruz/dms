@@ -2,8 +2,13 @@ package de.medic.cms.host.dms.model;
 
 import java.util.Date;
 
-public class Author {
+import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
+public class Author {
+	
+	@Id
 	private int id;
 	private String firstName;
 	private String lastName;

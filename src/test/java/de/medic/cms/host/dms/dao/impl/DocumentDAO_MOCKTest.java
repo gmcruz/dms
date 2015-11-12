@@ -1,55 +1,79 @@
 package de.medic.cms.host.dms.dao.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import java.util.List;
-
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
-import de.medic.cms.host.dms.dao.impl.DocumentDAO_MOCK;
-import de.medic.cms.host.dms.exception.DataNotFoundException;
 import de.medic.cms.host.dms.model.Document;
 
 public class DocumentDAO_MOCKTest {
 
+	DocumentDAO_MOCK documentDAO_MOCK;		
+	
+	@Before
+	public void setUp() throws Exception {
+		documentDAO_MOCK = new DocumentDAO_MOCK();		
+	}
+	
 	@Test
 	public void testGetAllDocuments() {
-		DocumentDAO_MOCK documentDAO_MOCK = new DocumentDAO_MOCK();		
+		//Arrange
+		
+		//Act
+		
+		//Assert
 		assertEquals(documentDAO_MOCK.getAllDocuments().size(), 3);
 	}
 
 	@Test
 	public void testGetDocument() {
-		DocumentDAO_MOCK documentDAO_MOCK = new DocumentDAO_MOCK();
+		//Arrange
+		
+		//Act
 		Document doc = documentDAO_MOCK.getDocument(123);
+		
+		//Assert
 		assertEquals("Document One", doc.getName());
 	}
 
 	@Test
 	public void testUpdateDocument() {
-		DocumentDAO_MOCK documentDAO_MOCK = new DocumentDAO_MOCK();
-		Document doc = documentDAO_MOCK.getDocument(123);
-		doc.setName("Document One Updated");		
+		//Arrange
+		Document doc = documentDAO_MOCK.getDocument(123);		
+		doc.setName("Document One Updated");
+		
+		//Act
 		documentDAO_MOCK.updateDocument(doc);
 		Document docUpdated = documentDAO_MOCK.getDocument(123);		
+		
+		//Assert
 		assertEquals("Document One Updated", docUpdated.getName());		
 	}
 
 	@Test
 	public void testDeleteDocument() {
-		DocumentDAO_MOCK documentDAO_MOCK = new DocumentDAO_MOCK();
+		//Arrange
 		Document doc = documentDAO_MOCK.getDocument(456);
+		
+		//Act
 		documentDAO_MOCK.deleteDocument(doc.getId());
+		
+		//Assert
 		assertEquals(documentDAO_MOCK.getAllDocuments().size(), 2);
 	}
-	
-	@Ignore
-	@Test(expected = DataNotFoundException.class)  	
+		
+	@Test()  	
 	public void testGetNonExistingDocumentShouldThrowDataNotFound() {
-		DocumentDAO_MOCK documentDAO_MOCK = new DocumentDAO_MOCK();
+		//Arrange
 		Document doc = documentDAO_MOCK.getDocument(13);
-		assertEquals("Document One", doc.getName());
+		
+		//Act
+		
+		//Assert
+		assertNull(doc);
 	}
+	
 
 }
