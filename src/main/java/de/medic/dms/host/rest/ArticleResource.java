@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Random;
 
 import javax.ejb.EJB;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
@@ -40,7 +42,7 @@ import de.medic.dms.host.services.IArticleService;
 		
 	    @GET
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})    
-	    public List<Article> listArticles(@QueryParam("offset") final String offset,  @QueryParam("limit") final String limit) {
+	    public List<Article> listArticles(@DefaultValue(value="0") @QueryParam("offset") final String offset,  @DefaultValue(value="15") @QueryParam("limit") final String limit) {
 	    	System.out.println(offset + " : " + limit);
 	    	return articleService.listArticles(); 
 	    }
@@ -48,7 +50,7 @@ import de.medic.dms.host.services.IArticleService;
 		
 	    @GET
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	    @Path("/{id}")
+	    @Path("/{id:[0-9]*}")
 	    public Article getArticle(@PathParam("id") int id) {
 	    	Article temp;
 	    	try{
@@ -65,9 +67,9 @@ import de.medic.dms.host.services.IArticleService;
 		@POST	
 		@Consumes("application/x-www-form-urlencoded")
 		@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-		public Response saveArticle(@FormParam("title") String title,	
-									@FormParam("name") String name,
-									@FormParam("extension") String extension,
+		public Response saveArticle(@NotNull @FormParam("title") String title,	
+									@NotNull @FormParam("name") String name,
+									@NotNull @FormParam("extension") String extension,
 									@FormParam("products") String products,
 									@FormParam("ingredients") String ingredients,
 									@FormParam("companies") String companies,
@@ -97,7 +99,7 @@ import de.medic.dms.host.services.IArticleService;
 		}
 		
 		@PUT
-		@Path("/{id}")
+		@Path("/{id:[0-9]*}")
 		@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 		@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 		public Response updateArticle(@PathParam("id") int id, Article article) {
@@ -113,7 +115,7 @@ import de.medic.dms.host.services.IArticleService;
 		
 		
 		@PUT
-		@Path("/{id}/relations")
+		@Path("/{id:[0-9]*}/relations")
 		@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 		@Consumes("application/x-www-form-urlencoded")
 		public Response addArticleRelation(@PathParam("id") int id, 
@@ -137,7 +139,7 @@ import de.medic.dms.host.services.IArticleService;
 		
 		
 		@DELETE
-		@Path("/{id}")
+		@Path("/{id:[0-9]*}")
 		@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 		public Response deleteArticle(@PathParam("id") int id) {
 			articleService.deleteArticle(id);
@@ -146,7 +148,7 @@ import de.medic.dms.host.services.IArticleService;
 		
 		
 		@DELETE
-		@Path("/{id}/relations/{objecttypeid}/{objectid}")
+		@Path("/{id:[0-9]*}/relations/{objecttypeid:[0-9]*}/{objectid:[0-9]*}")
 		@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 		@Consumes("application/x-www-form-urlencoded")
 		public Response deleteArticleRelation(@PathParam("id") int id, 
