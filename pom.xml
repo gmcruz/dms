@@ -41,18 +41,7 @@
 			<artifactId>javaee-web-api</artifactId>
 			<version>6.0</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-            <groupId>de.mmi.medic.service</groupId>
-            <artifactId>medic_usermanagement_service</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        	 <dependency>
-	  <groupId>de.mmi.medic</groupId>
-	  <artifactId>medic_usermanagement_backend</artifactId>
-	  <version>1.0.0</version>
-	  <scope>test</scope>
-	 </dependency>		   
+		</dependency>	   
     </dependencies>
 
 
